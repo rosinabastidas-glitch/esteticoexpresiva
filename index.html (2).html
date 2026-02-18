@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamento Estético Expresiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --background: #1A1A2E;
+            --surface: #16213E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B8B8D1;
+            --border: #2D3561;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+        }
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 107, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(78, 205, 196, 0.2) 0%, transparent 50%);
+            animation: float 15s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { opacity: 0.6; } 50% { opacity: 0.8; } }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            animation: orbit 20s ease-in-out infinite;
+        }
+        @keyframes orbit { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+        
+        .hero-content { position: relative; z-index: 2; text-align: center; padding: 4rem 0; }
+        .hero-badge {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(78, 205, 196, 0.2));
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            animation: glow 3s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 107, 107, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(255, 107, 107, 0.5), 0 0 80px rgba(78, 205, 196, 0.3); }
+        }
+        
+        .hero-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+        .title-line { display: block; }
+        .title-line.highlight {
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #FFE66D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradient 5s ease infinite;
+        }
+        @keyframes gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+        
+        .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 107, 107, 0.5);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .search-section {
+            padding: 4rem 0;
+            background: var(--surface);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .search-input {
+            width: 100%;
+            padding: 1.25rem 1.5rem 1.25rem 4rem;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+        }
+        .search-input::placeholder { color: var(--text-secondary); }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 30px rgba(255, 107, 107, 0.3);
+        }
+        
+        .search-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-chip {
+            padding: 0.5rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .filter-chip.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .main-content { padding: 6rem 0; }
+        .content-section { margin-bottom: 6rem; }
+        
+        .section-header {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            margin-bottom: 4rem;
+        }
+        .section-number {
+            font-family: 'Crimson Pro', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.6;
+        }
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .section-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        .resource-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(20px);
+        }
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .resource-card:hover::before { transform: scaleX(1); }
+        .resource-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: transparent;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 60px rgba(255, 107, 107, 0.3), 0 0 60px rgba(78, 205, 196, 0.2);
+        }
+        
+        .resource-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .resource-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .resource-meta {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .resource-link:hover { gap: 0.75rem; color: var(--secondary); }
+        
+        .subject-badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 40px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            font-family: 'Crimson Pro', serif;
+            margin-bottom: 2rem;
+        }
+        .subject-badge.visuales {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+        .subject-badge.musica {
+            background: linear-gradient(135deg, #4ECDC4, #556FB5);
+            color: white;
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
+        }
+        
+        /* Profesores table */
+        .profesores-table {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+        .profesores-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .profesores-table th {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--border);
+        }
+        .profesores-table td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .profesores-table tr:last-child td {
+            border-bottom: none;
+        }
+        .profesores-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .curso-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        /* Calendar */
+        .calendar-embed {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            backdrop-filter: blur(20px);
+        }
+        .calendar-note {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 230, 109, 0.1);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .hidden { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .section-header { flex-direction: column; }
+            .section-number { font-size: 2.5rem; }
+            .resources-grid { grid-template-columns: 1fr; }
+            .profesores-table { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-background"></div>
+        <div class="container hero-content">
+            <div class="hero-badge">EPEA N° 2 · Neuquén</div>
+            <h1 class="hero-title">
+                <span class="title-line">Departamento</span>
+                <span class="title-line highlight">Estético Expresiva</span>
+            </h1>
+            <p class="hero-subtitle">Centro de recursos y documentación para docentes de Artes Visuales y Música</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary">
+                    Explorar recursos
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+                <button class="btn btn-secondary">Ver calendario</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="search-section">
+        <div class="container">
+            <div class="search-wrapper">
+                <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none;">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar documentos, planificaciones, normativas...">
+                <div class="search-filters">
+                    <button class="filter-chip active" data-filter="all">Todos</button>
+                    <button class="filter-chip" data-filter="documentos">Documentos</button>
+                    <button class="filter-chip" data-filter="planificaciones">Planificaciones</button>
+                    <button class="filter-chip" data-filter="fortalecimiento">Fortalecimiento</button>
+                    <button class="filter-chip" data-filter="profesores">Profesores</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-number">01</div>
+                    <div>
+                        <h2 class="section-title">Documentos Institucionales</h2>
+                        <p class="section-description">Normativas, reglamentos y actas departamentales</p>
+                    </div>
+                </div>
+                <div class="resources-grid">
+                    <div class="resource-card" data-category="documentos">
+                        <div class="resource-icon">📋</div>
+                        <h3 class="resource-title">Proyecto Institucional</h3>
+                        <p class="resource-meta">Actualizado: Marzo 2026</p>
+                        <a href="#" class="resource-link">
+                            Abrir documento
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="resource-card" data-category="documentos">
+                        <div class="resource-icon">📄</div>
+                        <h3 class="resource-title">Actas Departamentales 2026</h3>
+                        <p class="resource-meta">Carpeta compartida</p>
+                        <a href="#" class="resource-link">Ver carpeta →</a>
+                    </div>
+                    <div class="resource-card" data-category="documentos">
+                        <div class="resource-icon">⚖️</div>
+                        <h3 class="resource-title">Normativa</h3>
+                        <p class="resource-meta">Diseño Nueva Escuela Secundaria</p>
+                        <a href="#" class="resource-link">Consultar →</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-number">02</div>
+                    <div>
+                        <h2 class="section-title">Planificaciones Didácticas</h2>
+                        <p class="section-description">Secuencias y proyectos por materia y ciclo</p>
+                    </div>
+                </div>
+                
+                <span class="subject-badge visuales">Lenguajes y Producción Cultural</span>
+                <div class="resources-grid">
+                    <div class="resource-card" data-category="planificaciones">
+                        <div class="resource-icon">🎨</div>
+                        <h3 class="resource-title">Ciclo Básico - 1º a 3º año</h3>
+                        <p class="resource-meta">Artes Visuales y Música integradas</p>
+                        <a href="#" class="resource-link">Ver planificaciones →</a>
+                    </div>
+                </div>
+                
+                <span class="subject-badge visuales">Artes Visuales</span>
+                <div class="resources-grid">
+                    <div class="resource-card" data-category="planificaciones">
+                        <div class="resource-icon">🖼️</div>
+                        <h3 class="resource-title">Ciclo Orientado - 4º a 6º año</h3>
+                        <p class="resource-meta">Proyectos interdisciplinarios</p>
+                        <a href="#" class="resource-link">Ver planificaciones →</a>
+                    </div>
+                </div>
+                
+                <span class="subject-badge musica">Música</span>
+                <div class="resources-grid">
+                    <div class="resource-card" data-category="planificaciones">
+                        <div class="resource-icon">🎼</div>
+                        <h3 class="resource-title">Ciclo Orientado - 4º a 6º año</h3>
+                        <p class="resource-meta">Proyectos y talleres especializados</p>
+                        <a href="#" class="resource-link">Ver planificaciones →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Programas de Fortalecimiento -->
+            <section id="fortalecimiento" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">03</div>
+                    <div>
+                        <h2 class="section-title">Programas de Fortalecimiento</h2>
+                        <p class="section-description">Proyectos y recursos para fortalecer las trayectorias educativas</p>
+                    </div>
+                </div>
+                <div class="resources-grid">
+                    <div class="resource-card" data-category="fortalecimiento">
+                        <div class="resource-icon">📚</div>
+                        <h3 class="resource-title">Materiales y Recursos</h3>
+                        <p class="resource-meta">Planificaciones, proyectos y documentos</p>
+                        <a href="https://drive.google.com/drive/folders/TU_CARPETA_FORTALECIMIENTO" target="_blank" class="resource-link">
+                            Acceder a Drive →
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profesores y Horarios -->
+            <section id="profesores" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">04</div>
+                    <div>
+                        <h2 class="section-title">Profesores y Horarios</h2>
+                        <p class="section-description">Equipo docente por curso y asignatura</p>
+                    </div>
+                </div>
+                <div class="profesores-table" data-category="profesores">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Curso</th>
+                                <th>Materia</th>
+                                <th>Docente</th>
+                                <th>Horario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="curso-badge">1º Año</span></td>
+                                <td>Lenguajes y Producción Cultural</td>
+                                <td>[Nombre Docente]</td>
+                                <td>Lunes 8:00 - 9:30</td>
+                            </tr>
+                            <tr>
+                                <td><span class="curso-badge">2º Año</span></td>
+                                <td>Lenguajes y Producción Cultural</td>
+                                <td>[Nombre Docente]</td>
+                                <td>Miércoles 14:00 - 15:30</td>
+                            </tr>
+                            <tr>
+                                <td><span class="curso-badge">3º Año</span></td>
+                                <td>Lenguajes y Producción Cultural</td>
+                                <td>[Nombre Docente]</td>
+                                <td>Viernes 10:00 - 12:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="curso-badge">4º Año</span></td>
+                                <td>Artes Visuales</td>
+                                <td>[Nombre Docente]</td>
+                                <td>Martes 8:00 - 10:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="curso-badge">4º Año</span></td>
+                                <td>Música</td>
+                                <td>[Nombre Docente]</td>
+                                <td>Miércoles 10:00 - 12:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="curso-badge">5º Año</span></td>
+                                <td>Artes Visuales</td>
+                                <td>[Nombre Docente]</td>
+                                <td>Jueves 14:00 - 16:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="curso-badge">5º Año</span></td>
+                                <td>Música</td>
+                                <td>[Nombre Docente]</td>
+                                <td>Viernes 8:00 - 10:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="curso-badge">6º Año</span></td>
+                                <td>Artes Visuales</td>
+                                <td>[Nombre Docente]</td>
+                                <td>Lunes 10:00 - 12:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="curso-badge">6º Año</span></td>
+                                <td>Música</td>
+                                <td>[Nombre Docente]</td>
+                                <td>Martes 14:00 - 16:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Calendario -->
+            <section id="calendario" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">05</div>
+                    <div>
+                        <h2 class="section-title">Calendario Departamental</h2>
+                        <p class="section-description">Eventos, reuniones y fechas importantes</p>
+                    </div>
+                </div>
+                <div class="calendar-embed">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=TU_CALENDARIO_ID&ctz=America%2FArgentina%2FBuenos_Aires" 
+                            style="border: 0; width: 100%; height: 600px; border-radius: 12px;"
+                            frameborder="0" 
+                            scrolling="no">
+                    </iframe>
+                    <p class="calendar-note">
+                        💡 <strong>Tip:</strong> Para configurar el calendario, reemplazá "TU_CALENDARIO_ID" con el ID de tu calendario de Google (lo encontrás en Configuración → Integrar calendario).
+                    </p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Smooth scroll for buttons
+        const btnPrimary = document.querySelector('.btn-primary');
+        const btnSecondary = document.querySelector('.btn-secondary');
+        
+        if (btnPrimary) {
+            btnPrimary.addEventListener('click', () => {
+                document.getElementById('documentos').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        
+        if (btnSecondary) {
+            btnSecondary.addEventListener('click', () => {
+                document.getElementById('calendario').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // Search and filter functionality
+        const searchInput = document.getElementById('searchInput');
+        const filterChips = document.querySelectorAll('.filter-chip');
+        const resourceCards = document.querySelectorAll('.resource-card');
+        const profesoresTable = document.querySelector('.profesores-table');
+        
+        let currentFilter = 'all';
+
+        // Filter chips handler
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                filterChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentFilter = chip.dataset.filter;
+                filterContent(searchInput.value.toLowerCase(), currentFilter);
+            });
+        });
+
+        // Search input handler
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                filterContent(searchTerm, currentFilter);
+            });
+        }
+
+        // Main filter function
+        function filterContent(searchTerm, filter) {
+            // Filter resource cards
+            resourceCards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                const cardCategory = card.dataset.category || '';
+                
+                const matchesSearch = !searchTerm || cardText.includes(searchTerm);
+                const matchesFilter = filter === 'all' || cardCategory === filter;
+                
+                if (matchesSearch && matchesFilter) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Filter profesores table
+            if (profesoresTable) {
+                const matchesFilter = filter === 'all' || filter === 'profesores';
+                const tableText = profesoresTable.textContent.toLowerCase();
+                const matchesSearch = !searchTerm || tableText.includes(searchTerm);
+                
+                if (matchesSearch && matchesFilter) {
+                    profesoresTable.classList.remove('hidden');
+                } else {
+                    profesoresTable.classList.add('hidden');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
